@@ -1,0 +1,33 @@
+ <div class="col-4 text-right">
+	    <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+
+ </div>
+ <h6 class="heading-small text-muted mb-4">My Trasanctions</h6>
+	      <% if @user_transactions %>
+
+		      	<table data-toggle="table" class="table table-responsive">
+				    <thead>
+				        <tr>
+				            <th data-field="name" data-sortable="true">Transaction Reference</th>
+				            <th data-field="label" data-sortable="true">Amount(Naira)</th>
+				            <th data-field="title" data-sortable="true">Status</th>
+				            <th data-field="price" data-sortable="true">Payment Date</th>
+				            <th data-field="accept-job" data-sortable="true">Song Title</th>
+				        </tr>
+				     </thead>
+		     		<tbody>
+		     			<% @user_transactions.each do |trxn| %>
+				         <tr>
+				             <td><%= trxn.trxn_reference %></td>
+				             <td><%= sprintf('%.2f', trxn.amount.to_f/100) %></td>
+				             <td><%= trxn.status %></td>
+				             <td><%= trxn.payment_date %></td>
+				             <td>Yes and Amen</td>
+
+				         </tr>
+				        <% end %>
+		    		</tbody>
+		    	 </table>
+		      <% end %>
+	      <div class="pl-lg-4">
+	      </div>

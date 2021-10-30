@@ -1,0 +1,223 @@
+											
+<div class="card">
+  <div class="card-header">
+    <div class="row align-items-center">
+      <div class="col-8">
+        <h3 class="mb-0">Welcome, <%= current_user.email %> </h3>
+      </div>
+      <div class="col-4 text-right">
+	    <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+
+      </div>
+    </div>
+  </div>
+<% if current_user.creator_role? %>
+	<div class="card">
+	  <div class="card-header">
+	    <div class="row align-items-center">
+	      <div class="col-8">
+	        <h3 class="mb-0">My Account </h3>
+	      </div>
+	      
+	    </div>
+	  </div>
+	  <div class="card-body">
+	      <h6 class="heading-small text-muted mb-4">User information</h6>
+	      <div class="pl-lg-4">
+	        <div class="row">
+	          <div class="col-lg-6">
+	            <div class="form-group">
+	              <label class="form-control-label" for="input-email">Email address:</label> &nbsp;<%= current_user.email %><br>
+	              <label class="form-control-label" for="input-first-name">First name:</label> &nbsp; Lucky <br>
+	              <label class="form-control-label" for="input-last-name">Last name:</label> &nbsp; Jesse
+
+	            </div>
+	          </div>
+
+	        </div>
+	      </div>
+	      <hr class="my-4" />
+	      <!-- Address -->
+	      <h6 class="heading-small text-muted mb-4">My Songs</h6>
+	      <% if @songs.present? %>
+
+		      	<table data-toggle="table" class="table table-responsive">
+				    <thead>
+				        <tr>
+				            <th data-field="name" data-sortable="true">Name</th>
+				            <th data-field="label" data-sortable="true">Label</th>
+				            <th data-field="title" data-sortable="true">Title</th>
+				            <th data-field="price" data-sortable="true">Price</th>
+				            <th data-field="accept-job" data-sortable="true">Created Date</th>
+				        </tr>
+				     </thead>
+		     		<tbody>
+		     			<% @songs.each do |song| %>
+				         <tr>
+				             <td><%= song.artist%></td>
+				             <td><%= song.label %></td>
+				             <td><%= song.title %></td>
+				             <td>N<%= song.price %></td>
+				             <td><%= song.createdat.strftime("%d-%m-%Y")%></td>
+
+				         </tr>
+				        <% end %>
+		    		</tbody>
+		    	 </table>
+		      <% end %>
+	      <div class="pl-lg-4">
+	      </div>
+	      <hr class="my-4" />
+	      <!-- Description -->
+	      <h6 class="heading-small text-muted mb-4">Payment Information</h6>
+	      <div>
+	          <label class="form-control-label">Account Details</label>
+
+	          <% if @account.present? %>
+
+		      	<table data-toggle="table" class="table table-responsive">
+				    <thead>
+				        <tr>
+				            <th data-field="date" data-sortable="true">Account Number</th>
+				            <th data-field="deadline" data-sortable="true">Account Status</th>
+				            <th data-field="accept-job" data-sortable="true">Bank Name</th>
+				            <th data-field="accept-job" data-sortable="true">Created Date</th>
+				        </tr>
+				     </thead>
+		     		<tbody>
+				         <tr>
+				             <td><%= @account.account_number%></td>
+				             <td><%= @account.active == true ? 'Active' : 'Inactive' %></td>
+				             <td><%= @account.settlement_bank%></td>
+				             <td><%= @account.createdat.strftime("%d-%m-%Y")%></td>
+
+				         </tr>
+		    		</tbody>
+		    	 </table>
+		    	 <% else %>
+		    	 	 <div class="pl-lg-4">
+			        <div class="form-group">
+			          <label class="form-control-label">Setup your account details to start receiving payments</label>
+			          <button id="myBtn" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add Account</button>          
+			        </div>
+			      </div>
+		      <% end %>
+	      </div>
+	  </div>
+	</div>
+	<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+            	<form action="/account" method="post">
+	  			  <h3>Add account details</h3>
+				   	  <label>Select Bank:</label>
+					  <select name="bank_code" id="bankCode">
+						  <option value="044">Access Bank Nigeria Plc</option>
+						  <option value="063">Diamond Bank Plc</option>
+						  <option value="050">Ecobank Nigeria</option>
+						  <option value="070">Fidelity Bank Plc</option>
+						  <option value="011">First Bank of Nigeria Plc</option>
+						  <option value="244">First City Monument Bank</option>
+						  <option value="058">Guaranty Trust Bank Plc</option>
+						  <option value="030">Heritaage Banking Company Ltd</option>  
+						  <option value="301">Jaiz Bank</option>  
+						  <option value="082">Keystone Bank Ltd</option>  
+						  <option value="039">Stanbic IBTC Plc</option>
+						  <option value="232">Sterling Bank Plc</option> 
+						  <option value="032">Union Bank Nigeria Plc</option>  
+						  <option value="033">United Bank for Africa Plc</option>  
+						  <option value="215">Unity Bank Plc</option>  
+						  <option value="035">WEMA Bank Plc</option>  
+						  <option value="057">Zenith Bank International</option>  
+					  </select>
+				 		<label>Account Number: </label> <input type="text" name="account_number" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" required />
+				 		<div class="modal-footer">
+				  	<p><input type="submit" value="Create Account" class="btn btn-sm btn-primary"></p>
+                
+            </div>
+			    </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+	
+<% end %>
+
+
+<% if current_user.fan_role? %>
+	<div class="header bg-primary pb-6">
+	  <div class="container-fluid">
+	    
+	  </div>
+	</div>
+	<!-- Page content -->
+	<div class="container-fluid mt--6">
+	  <div class="row">
+	    <div class="col">
+	      <%= render 'pages/tables/light' %>
+	    </div>
+	  </div>
+	</div>
+<% end %>
+
+<% if current_user.superadmin_role? %>
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <%= render partial: 'pages/header', locals: {
+            icon: 'home',
+            breadcrumb_1: 'Dashboards',
+            breadcrumb_2: 'Home'
+      } %>
+      <%= render 'pages/dashboard/metrics_summary' %>
+    </div>
+  </div>
+</div>
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col-xl-8">
+      <%= render 'pages/dashboard/charts/sales' %>
+    </div>
+    <div class="col-xl-4">
+      <%= render 'pages/dashboard/charts/orders' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-8">
+      <%= render 'pages/dashboard/tables/page_visits' %>
+    </div>
+    <div class="col-xl-4">
+      <%= render 'pages/dashboard/tables/social_traffic' %>
+    </div>
+  </div>
+</div>
+<% end %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+// when DOM is ready
+$(document).ready(function () {
+
+     // Attach Button click event listener 
+    $("#myBtn").click(function(){
+
+         // show Modal
+         $('#myModal').modal('show');
+         $('.modal-backdrop').remove();
+    });
+});
+
+</script>
+
+ 
+
+
+

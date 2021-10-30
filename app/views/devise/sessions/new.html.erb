@@ -1,0 +1,52 @@
+<% content_for(:title) { 'Welcome to MuzikHub!' } %>
+<% content_for(:subtitle) { 'Join the fastest growing music platform in the world.' } %>
+
+<div class="container mt--8 pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7">
+      <div class="card bg-secondary border-0 mb-0">
+        <div class="card-header bg-transparent pb-5">
+          <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
+          <div class="btn-wrapper text-center">
+            <a href="#" class="btn btn-neutral btn-icon">
+              <span class="btn-inner--icon"><%= image_tag 'icons/common/github.svg' %></span>
+              <span class="btn-inner--text">Github</span>
+            </a>
+            <a href="#" class="btn btn-neutral btn-icon">
+              <span class="btn-inner--icon"><%= image_tag 'icons/common/google.svg' %></span>
+              <span class="btn-inner--text">Google</span>
+            </a>
+          </div>
+        </div>
+        <div class="card-body px-lg-5 py-lg-5">
+          <div class="text-center text-muted mb-4">
+            <small>Sign in with credentials</small>
+          </div>
+          <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+	
+            <div class="form-group">
+              <%= f.label :email %>
+		      <%= f.input :email, placeholder: 'Email', label: false, input_html: { class: 'form-control' } %>
+		    </div>
+		    <div class="form-group">
+              <%= f.label :password %>
+		      <%= f.input :password, required: true, label: false, size:"0", placeholder: 'Password', input_html: { class: 'form-control' } %>
+		    </div>
+			  <%= f.button :submit, "Sign in", :class => 'btn-primary' %>
+		    
+            </div> <!-- /.form-group -->
+		
+		    <div class="form-actions">
+			  <br />
+		      <%= render "devise/shared/links" %>
+			  <br />
+		    </div>
+		  <% end %>
+		
+	    </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

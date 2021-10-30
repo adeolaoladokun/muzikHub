@@ -1,19 +1,19 @@
 <div class="card">
   <!-- Card header -->
   <div class="card-header border-0">
-    <h3 class="mb-0">Light table</h3>
+    <h3 class="mb-0">Songs</h3>
   </div>
   <!-- Light table -->
   <div class="table-responsive">
     <table class="table align-items-center table-flush">
       <thead class="thead-light">
         <tr>
-          <th scope="col" class="sort" data-sort="name">Project</th>
-          <th scope="col" class="sort" data-sort="budget">Budget</th>
-          <th scope="col" class="sort" data-sort="status">Status</th>
+          <th scope="col" class="sort" data-sort="name">Artist</th>
+          <th scope="col" class="sort" data-sort="budget">Title</th>
+          <th scope="col" class="sort" data-sort="budget">Price</th>
           <th scope="col">Users</th>
-          <th scope="col" class="sort" data-sort="completion">Completion</th>
-          <th scope="col"></th>
+          <th scope="col" class="sort" data-sort="completion">Rating</th>
+          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody class="list">
@@ -24,18 +24,15 @@
                 <%= image_tag "theme/bootstrap.jpg", alt: "..." %>
               </a>
               <div class="media-body">
-                <span class="name mb-0 text-sm">Argon Design System</span>
+                <span class="name mb-0 text-sm">Tope Alabi</span>
               </div>
             </div>
           </th>
           <td class="budget">
-            $2500 USD
+            Yes and Amen
           </td>
-          <td>
-            <span class="badge badge-dot mr-4">
-              <i class="bg-warning"></i>
-              <span class="status">pending</span>
-            </span>
+          <td class="budget">
+            N4500 Naira
           </td>
           <td>
             <%= render 'pages/tables/avatar_group' %>
@@ -46,8 +43,15 @@
               bg_class: 'bg-warning'
             } %>
           </td>
-          <td class="text-right">
-            <%= render 'pages/tables/row_actions' %>
+          <td>
+              <form id="paymentForm">
+                <input type="hidden" name="email" id="email-address" value="<%= current_user.email%>">
+                <input type="hidden" name="amount"id="amount" value="4500">
+                <input type="hidden" name="first_name"id="first_name" value="Adeola">
+                <input type="hidden" name="last_name"id="last_name" value="Oladokun">
+                <button type="submit" class="btn btn-sm btn-primary" onclick="payWithPaystack(event)"> Purchase Now </button>
+              </form>        
+              
           </td>
         </tr>
         <tr>
@@ -57,18 +61,15 @@
                 <%= image_tag "theme/angular.jpg", alt: "..." %>
               </a>
               <div class="media-body">
-                <span class="name mb-0 text-sm">Angular Now UI Kit PRO</span>
+                <span class="name mb-0 text-sm">Tope Alabi</span>
               </div>
             </div>
           </th>
           <td class="budget">
-            $1800 USD
+            Imole De
           </td>
-          <td>
-            <span class="badge badge-dot mr-4">
-              <i class="bg-success"></i>
-              <span class="status">completed</span>
-            </span>
+          <td class="budget">
+            N5000 Naira
           </td>
           <td>
             <%= render 'pages/tables/avatar_group' %>
@@ -79,8 +80,9 @@
               bg_class: 'bg-success'
             } %>
           </td>
-          <td class="text-right">
-            <%= render 'pages/tables/row_actions' %>
+          <td>
+              <a class="btn btn-sm btn-primary" id="acct-btn">Purchase Now</a>            
+              
           </td>
         </tr>
         <tr>
@@ -90,18 +92,15 @@
                 <%= image_tag "theme/sketch.jpg", alt: "..." %>
               </a>
               <div class="media-body">
-                <span class="name mb-0 text-sm">Black Dashboard</span>
+                <span class="name mb-0 text-sm">Tope Alabi</span>
               </div>
             </div>
           </th>
           <td class="budget">
-            $3150 USD
+            Glory
           </td>
-          <td>
-            <span class="badge badge-dot mr-4">
-              <i class="bg-danger"></i>
-              <span class="status">delayed</span>
-            </span>
+          <td class="budget">
+            N6000 Naira
           </td>
           <td>
             <%= render 'pages/tables/avatar_group' %>
@@ -112,8 +111,9 @@
               bg_class: 'bg-danger'
             } %>
           </td>
-          <td class="text-right">
-            <%= render 'pages/tables/row_actions' %>
+          <td>
+              <a class="btn btn-sm btn-primary" id="acct-btn">Purchase Now</a>            
+              
           </td>
         </tr>
         <tr>
@@ -123,18 +123,15 @@
                 <%= image_tag "theme/react.jpg", alt: "..." %>
               </a>
               <div class="media-body">
-                <span class="name mb-0 text-sm">React Material Dashboard</span>
+                <span class="name mb-0 text-sm">Mercy Chinwo</span>
               </div>
             </div>
           </th>
           <td class="budget">
-            $4400 USD
+            Great God
           </td>
-          <td>
-            <span class="badge badge-dot mr-4">
-              <i class="bg-info"></i>
-              <span class="status">on schedule</span>
-            </span>
+          <td class="budget">
+            N4400 Naira
           </td>
           <td>
             <%= render 'pages/tables/avatar_group' %>
@@ -145,8 +142,9 @@
               bg_class: 'bg-info'
             } %>
           </td>
-          <td class="text-right">
-            <%= render 'pages/tables/row_actions' %>
+          <td>
+              <a class="btn btn-sm btn-primary" id="acct-btn">Purchase Now</a>            
+              
           </td>
         </tr>
         <tr>
@@ -156,18 +154,15 @@
                 <%= image_tag "theme/vue.jpg", alt: "..." %>
               </a>
               <div class="media-body">
-                <span class="name mb-0 text-sm">Vue Paper UI Kit PRO</span>
+                <span class="name mb-0 text-sm">Mercy Chinwo</span>
               </div>
             </div>
           </th>
           <td class="budget">
-            $2200 USD
+            Halleluyah Praise
           </td>
-          <td>
-            <span class="badge badge-dot mr-4">
-              <i class="bg-success"></i>
-              <span class="status">completed</span>
-            </span>
+          <td class="budget">
+            N2200 Naira
           </td>
           <td>
             <%= render 'pages/tables/avatar_group' %>
@@ -178,8 +173,9 @@
               bg_class: 'bg-success'
             } %>
           </td>
-          <td class="text-right">
-            <%= render 'pages/tables/row_actions' %>
+          <td>
+              <a class="btn btn-sm btn-primary" id="acct-btn">Purchase Now</a>            
+              
           </td>
         </tr>
       </tbody>
@@ -212,3 +208,50 @@
     </nav>
   </div>
 </div>
+
+<script src="https://js.paystack.co/v1/inline.js"></script> 
+<script type="text/javascript">
+  //console.log(document.getElementById("amount").value);
+  const paymentForm = document.getElementById('paymentForm');
+  ref = ''+Math.floor((Math.random() * 1000000000) + 1);
+  paymentForm.addEventListener("submit", payWithPaystack, true);
+  console.log(ref);
+  console.log("<%= @creator_subaccount %>");
+  function payWithPaystack(event) {
+    event.preventDefault();
+    let handler = PaystackPop.setup({
+      key: "<%= @test_pub_key %>", // Replace with your public key
+      subaccount: "<%= @creator_subaccount %>",
+      email: document.getElementById("email-address").value,
+      amount: document.getElementById("amount").value * 100,
+      metadata:{
+        product_id: 1,
+         "custom_fields":[
+            {
+              "display_name":"Artist Name",
+              "variable_name":"Artist Name",
+              "value":"Tope Alabi"
+            },
+            {
+              "display_name":"Song Title",
+              "variable_name":"Song Title",
+              "value":"You Are Worthy"
+            }
+            ]
+      },
+      ref: ref, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+      // label: "Optional string that replaces customer email"
+      onClose: function(){
+        alert('Cancel Transaction?');
+      },
+      callback: function(response){
+        let message = 'Payment complete! Reference: ' + response.reference;
+        window.location = "verify/reference?reference=" + response.reference;
+        //alert(message);
+      }
+  })
+    handler.openIframe();
+  };
+
+
+</script>
