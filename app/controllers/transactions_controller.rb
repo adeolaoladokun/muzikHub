@@ -15,9 +15,9 @@ class TransactionsController < ApplicationController
     	verification_data = JSON.parse(@response.body)
     	logger.debug("Transaction data is #{verification_data}")
     	if @response.code == 200 && verification_data['data']['status'] == 'success' 
-    		platform_amount = verification_data['data']['fees_split']['integration'].round
-    		creator_amount = verification_data['data']['fees_split']['subaccount'].round
-    		paystack_charge = verification_data['data']['fees_split']['paystack'].round
+    		platform_amount = verification_data['data']['fees_split']['integration'].round(0)
+    		creator_amount = verification_data['data']['fees_split']['subaccount'].round(0)
+    		paystack_charge = verification_data['data']['fees_split']['paystack'].round(0)
     	    Transaction.where(:trxn_reference => txn_reference).update_all({:status => "Paid", :platform_amount => platform_amount, :creator_amount => creator_amount, :payment_provider_amount => paystack_charge})
 			redirect_to(user_transactions_path, :notice => 'Transaction Successful')	
     	end
