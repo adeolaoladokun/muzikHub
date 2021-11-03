@@ -26,7 +26,7 @@ class AccountsController < ApplicationController
 		                :business_name => "Mavin Records",
 		                :bank_code => "#{bank_code}",
 		                :account_number => "#{account_number}",
-		                :percentage_charge => 0.98}.to_json, 
+		                :percentage_charge => 98}.to_json, 
 		      :headers => headers)
 			
 			
