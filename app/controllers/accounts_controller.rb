@@ -14,18 +14,19 @@ class AccountsController < ApplicationController
   		"Authorization" => "Bearer sk_test_a18d989117519e3ac64b574291657d9b1f2031c2" 
 		}
 
-	verify_endpoint = 'https://api.paystack.co/bank/resolve?account_number='+account_number+'&bank_code='+058
+	verify_endpoint = 'https://api.paystack.co/bank/resolve?account_number='+account_number+'&bank_code='+bank_code
 	logger.debug("Account verification endpoint is #{verify_endpoint}")
-	@verify_response = HTTParty.get(verify,:headers => headers)
+	@verify_response = HTTParty.get(verify_endpoint,:headers => headers)
     verify_data = JSON.parse(@verify_response.body)
-	if verify_data.code == 200 && account_number.to_s == verify_data['data']['account_number']
+    logger.debug("Verification Response is #{@verify_response.code}")
+	if @verify_response.code == 200 && account_number.to_s == verify_data['data']['account_number']
 			endpoint = 'https://api.paystack.co/subaccount'
 		  	@response = HTTParty.post(endpoint,
 		      :body => {    
 		                :business_name => "Mavin Records",
 		                :bank_code => "#{bank_code}",
 		                :account_number => "#{account_number}",
-		                :percentage_charge => 0.02}.to_json, 
+		                :percentage_charge => 0.98}.to_json, 
 		      :headers => headers)
 			
 			
