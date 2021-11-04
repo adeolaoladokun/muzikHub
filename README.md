@@ -11,5 +11,5 @@ Admin Dashboard
 # Dependencies
 Rails version - Rails 6.0.4.1
 Ruby version - Ruby 2.6.8p205
- PostgreSQL version - PostgreSQL 10.18
- Argon Dashboard theme https://github.com/Dino-Saas/Argon
+PostgreSQL version - PostgreSQL 10.18
+Argon Dashboard theme https://github.com/Dino-Saas/Argon
